@@ -1,5 +1,6 @@
 package com.udacity.jdnd.course3.critter.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.DayOfWeek;
@@ -15,15 +16,17 @@ import java.util.Set;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+    @Autowired
+    private CustomerService customerService;
 
     @PostMapping("/customer")
     public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO){
-        throw new UnsupportedOperationException();
+        return customerService.saveCustomer(customerDTO);
     }
 
     @GetMapping("/customer")
     public List<CustomerDTO> getAllCustomers(){
-        throw new UnsupportedOperationException();
+        return customerService.getAllCustomers();
     }
 
     @GetMapping("/customer/pet/{petId}")
@@ -39,6 +42,7 @@ public class UserController {
     @PostMapping("/employee/{employeeId}")
     public EmployeeDTO getEmployee(@PathVariable long employeeId) {
         throw new UnsupportedOperationException();
+
     }
 
     @PutMapping("/employee/{employeeId}")
