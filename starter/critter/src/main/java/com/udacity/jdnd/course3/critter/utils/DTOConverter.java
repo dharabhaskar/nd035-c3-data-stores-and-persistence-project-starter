@@ -10,6 +10,9 @@ import com.udacity.jdnd.course3.critter.user.CustomerDTO;
 import com.udacity.jdnd.course3.critter.user.EmployeeDTO;
 import org.springframework.beans.BeanUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DTOConverter {
     public static Pet convertToPetEntity(PetDTO dto){
         Pet pet=new Pet();
@@ -19,6 +22,9 @@ public class DTOConverter {
     public static PetDTO convertToPetDTO(Pet pet){
         PetDTO petDTO=new PetDTO();
         BeanUtils.copyProperties(pet,petDTO);
+        if(pet.getCustomer()!=null) {
+            petDTO.setOwnerId(pet.getCustomer().getId());
+        }
         return petDTO;
     }
 
@@ -41,9 +47,21 @@ public class DTOConverter {
     }
 
     public static CustomerDTO convertToCustomerDTO(Customer customer){
-        CustomerDTO dto=new CustomerDTO();
+        /*CustomerDTO dto=new CustomerDTO();
         BeanUtils.copyProperties(customer,dto);
-        return dto;
+        return dto;*/
+        CustomerDTO savedCustomerDto = new CustomerDTO();
+        savedCustomerDto.setId(customer.getId());
+        savedCustomerDto.setName(customer.getName());
+        savedCustomerDto.setPhoneNumber(customer.getPhoneNumber());
+        List<Pet> pets =  customer.getPets();
+        List<Long> petsIds = new ArrayList<>();
+        if (pets!= null) {
+            pets.forEach((pet) -> petsIds.add(pet.getId()));
+        }
+
+        savedCustomerDto.setPetIds(petsIds);
+        return savedCustomerDto;
     }
 
     public static Schedule convertToScheduleEntity(ScheduleDTO dto){

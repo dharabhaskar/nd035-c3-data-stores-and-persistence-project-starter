@@ -1,10 +1,7 @@
 package com.udacity.jdnd.course3.critter.user;
 
 import com.udacity.jdnd.course3.critter.pet.Pet;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
@@ -33,6 +30,17 @@ public class Customer {
         if(this.pets==null){
             pets=new ArrayList<>();
         }
-        this.addPet(pet);
+        pets.add(pet);
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", notes='" + notes + '\'' +
+                ", pets=" + pets +
+                '}';
     }
 }
