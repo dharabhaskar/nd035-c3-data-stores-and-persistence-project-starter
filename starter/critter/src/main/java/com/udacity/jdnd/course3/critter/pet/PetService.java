@@ -7,6 +7,7 @@ import com.udacity.jdnd.course3.critter.utils.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,6 +19,7 @@ public class PetService {
     @Autowired
     private CustomerRepository customerRepository;
 
+    @Transactional
     public PetDTO savePet(PetDTO petDTO) {
         Pet pet = DTOConverter.convertToPetEntity(petDTO);
         Pet savedPet = petRepository.save(pet);

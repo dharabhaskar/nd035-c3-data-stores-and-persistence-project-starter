@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Pet {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Nationalized
     @Column(length = 100)

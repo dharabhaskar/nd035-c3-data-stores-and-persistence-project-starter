@@ -18,6 +18,7 @@ public class CustomerService {
     @Autowired
     private PetRepository petRepository;
 
+    @Transactional
     public CustomerDTO saveCustomer(CustomerDTO customerDTO){
         Customer customer=customerRepository.save(DTOConverter.convertToCustomerEntity(customerDTO));
         for(Long petId:customerDTO.getPetIds()){

@@ -5,6 +5,7 @@ import com.udacity.jdnd.course3.critter.utils.DTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @Transactional
     public EmployeeDTO saveEmployeeDetails(EmployeeDTO dto) {
         Employee employee = DTOConverter.convertToEmployeeEntity(dto);
         Employee savedEmployee = employeeRepository.save(employee);
@@ -48,10 +50,8 @@ public class EmployeeService {
         List<Employee> employees=employeeRepository.findEmployeeByDaysAvailable(dayOfWeek)
                 .stream().filter(employee -> employee.getSkills().containsAll(skills)).collect(Collectors.toList());
 
-        List<EmployeeDTO> dtos=new ArrayList<>();
-        for(Employee e:employees){
-            dtos.add(DTOConverter.convertToEmployeeDTO(e));
-        }
-        return dtos;
+        return employees.stream()
+                .map(DTOConverter::convertToEmployeeDTO)
+                .collect(Collectors.toList());
     }
 }

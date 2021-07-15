@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,7 @@ public class ScheduleService {
     private static Logger logger = LoggerFactory.getLogger(Schedule.class);
 
 
+    @Transactional
     public ScheduleDTO createSchedule(ScheduleDTO scheduleDTO) {
         List<Pet> pets = getPets(scheduleDTO.getPetIds());
         List<Employee> employees = getEmployees(scheduleDTO.getEmployeeIds());
