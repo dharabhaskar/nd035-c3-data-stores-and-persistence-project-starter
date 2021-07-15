@@ -12,6 +12,7 @@ import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DTOConverter {
     public static Pet convertToPetEntity(PetDTO dto){
@@ -72,7 +73,10 @@ public class DTOConverter {
 
     public static ScheduleDTO convertToScheduleDTO(Schedule schedule){
         ScheduleDTO dto=new ScheduleDTO();
-        BeanUtils.copyProperties(schedule,dto);
+        dto.setActivities(schedule.getActivities());
+        dto.setDate(schedule.getLocalDate());
+        dto.setEmployeeIds(schedule.getEmployees().stream().map(Employee::getId).collect(Collectors.toList()));
+        dto .setPetIds(schedule.getPets().stream().map(Pet::getId).collect(Collectors.toList()));
         return dto;
     }
 }

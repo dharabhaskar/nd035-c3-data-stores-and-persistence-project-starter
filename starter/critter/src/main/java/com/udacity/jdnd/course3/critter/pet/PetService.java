@@ -52,7 +52,7 @@ public class PetService {
 
     public List<PetDTO> getPetsByOwner(long ownerId) {
         Customer customer = customerRepository.findById(ownerId).orElseThrow(CustomerNotFoundException::new);
-        System.out.println(customer.getName() + " " + customer.getPets());
+        //System.out.println(customer.getName() + " " + customer.getPets());
         Iterable<Pet> pets = customer.getPets();
         List<PetDTO> petDTOS = new ArrayList<>();
         if (pets != null) {

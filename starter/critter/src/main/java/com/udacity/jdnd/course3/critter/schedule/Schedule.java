@@ -33,4 +33,15 @@ public class Schedule {
     private Set<EmployeeSkill> activities;
 
     private LocalDate localDate;
+
+    @Override
+    public String toString() {
+        return "Schedule{" +
+                "id=" + id +
+                ", employees=" + employees +
+                ", pets=" + pets +
+                ", activities=" + activities +
+                ", localDate=" + localDate +
+                '}';
+    }
 }
